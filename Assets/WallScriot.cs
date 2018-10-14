@@ -15,13 +15,21 @@ public class WallScriot : MonoBehaviour {
 		this.GetComponent<Rigidbody> ().AddForce (this.transform.forward * wallForce);
 	}
 
+
+
 	void OnCollisionEnter(Collision other){
-		other.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * wallForce/5);
-		other.gameObject.GetComponent<Rigidbody> ().AddForce (this.transform.forward * wallForce/5);
+		if(other.gameObject.tag != "Field"){
+			other.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * wallForce);
+			//other.gameObject.GetComponent<Rigidbody> ().AddForce (this.transform.forward * wallForce/30);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(Input.GetKeyDown(KeyCode.E)){
+			this.gameObject.AddComponent<BoxCollider> ();
+			WallAddForce ();
+			Destroy (this.gameObject, 5f);
+		}
 	}
 }

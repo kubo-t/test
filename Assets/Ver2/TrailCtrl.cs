@@ -9,7 +9,7 @@ public class TrailCtrl : MonoBehaviour {
 	private float step = 0f;
 	private float speedStep = 3.5f;
 
-	private bool synchro = false;
+	//private bool synchro = false;
 
 	// Use this for initialization
 	void Start () {
