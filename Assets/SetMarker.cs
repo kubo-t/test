@@ -62,6 +62,8 @@ public class SetMarker : MonoBehaviour {
 			mdlPos = markList [1].transform.position;
 			maxPos = markList [2].transform.position;
 
+			//this.
+
 			//*-----------------------目標-----------------------*/
 			//始点...1つ目の赤cube
 			//中間点...2つ目の赤cube

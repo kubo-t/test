@@ -29,7 +29,7 @@ public class WallScriot : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.E)){
 			this.gameObject.AddComponent<BoxCollider> ();
 			WallAddForce ();
-			Destroy (this.gameObject, 5f);
+			Destroy (this.gameObject, 2f);
 		}
 	}
 }
