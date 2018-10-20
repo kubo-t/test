@@ -56,7 +56,7 @@ public class SetMarker : MonoBehaviour {
 
 		if (markCount == 3) {
 
-			Debug.Log (markCount);
+			//Debug.Log (markCount);
 
 			minPos = markList [0].transform.position;
 			mdlPos = markList [1].transform.position;
@@ -84,6 +84,9 @@ public class SetMarker : MonoBehaviour {
 			float xp = markList [1].transform.position.x; //中間点のx座標
 			float yp = markList [1].transform.position.z; //中間点のy座標
 
+			float ha = markList [0].transform.position.y;
+			float hb = markList [2].transform.position.y;
+
 			//始点A(ax, ay)と終点B(bx, by)を通る直線abと、直線abに対して垂直かつ中間点P(xp, yp)を通る直線ABとの交点Q(xq, yq)を求める
 			float a = (yb - ya) / (xb - xa); //直線abの傾きa
 			float b = yb - (a * xb); //直線abの補正値b
@@ -96,7 +99,7 @@ public class SetMarker : MonoBehaviour {
 
 			//(zq, yq)をVector3 targetに格納
 			//Vector3 target;
-			target = new Vector3 (xq, 0f, yq);
+			target = new Vector3 (xq, (ha + hb)/2, yq);
 
 			//始点A(xa, ya)と終点B(xb, yb)の中点L(xl, yl)を求める
 			float xl = (xa + xb) / 2;
@@ -133,7 +136,7 @@ public class SetMarker : MonoBehaviour {
 	void Marking(){
 		//int markCount = 0;
 		if(markCount <= 2){
-			markList.Add (Instantiate (markerPrefab, new Vector3(this.transform.position.x, 0, this.transform.position.z), Quaternion.identity));
+			markList.Add (Instantiate (markerPrefab, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity));
 
 			markCount += 1;
 		}
