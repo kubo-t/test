@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4967555441646748}
   - component: {fileID: 120484877985527626}
   - component: {fileID: 114499292693308316}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LineMakerPrefab
   m_TagString: LineMaker
   m_Icon: {fileID: 0}
@@ -52,8 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48895d3ebf6fa544a1c5b3553b95ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
   stringMakerPrefab: {fileID: 1874560409283960, guid: e25dbc461c1066749a6ccfd96e05778c,
     type: 2}
+  positionList: []
+  Num: 0
+  newPositionCount: 0
 --- !u!120 &120484877985527626
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +91,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}

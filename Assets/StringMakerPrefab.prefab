@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4821148559735918}
   - component: {fileID: 114128077866054564}
   - component: {fileID: 120671748848836094}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StringMakerPrefab
   m_TagString: StringMaker
   m_Icon: {fileID: 0}
@@ -52,8 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b164c62de8010244a9ad52be1220c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineRenderer: {fileID: 0}
   lineMakerPrefab: {fileID: 1786388846587026, guid: 9fdb18730cdcc734784cae9b8f1efd8f,
     type: 2}
+  Num: 0
 --- !u!120 &120671748848836094
 LineRenderer:
   m_ObjectHideFlags: 1
