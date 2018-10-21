@@ -41,7 +41,7 @@ public class GameCtrl : MonoBehaviour {
 					lineObjects [recentPositionNum].GetComponent<LineCtrl> ().DestroyPositions ();// 導火線の本線を短くする
 
 					if (lineObjects [recentPositionNum].GetComponent<LineCtrl> ().lineRenderer.positionCount - 1 > 0) { // 導火線のFireオブジェクトを動かす（汚い）
-						fire.transform.position = lineObjects [recentPositionNum].GetComponent<LineCtrl> ().lineRenderer.GetPosition (lineObjects [recentPositionNum].GetComponent<LineCtrl> ().lineRenderer.positionCount - 1);
+						fire.transform.position = lineObjects [recentPositionNum].GetComponent<LineCtrl> ().lineRenderer.GetPosition (lineObjects [recentPositionNum].GetComponent<LineCtrl> ().lineRenderer.positionCount - 2);
 					}else if(lineObjects [0].GetComponent<LineCtrl> ().lineRenderer.positionCount - 1 == 0 && exploaded == false){
 						Debug.Log ("LAST");
 						fire.transform.position = new Vector3(0f, 1.5f, 0f);
