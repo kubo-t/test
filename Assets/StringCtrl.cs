@@ -25,14 +25,18 @@ public class StringCtrl : MonoBehaviour {
 
 	[SerializeField] private GameObject lineMakerPrefab; // Qキーで弦のPrefabを生成するために取得
 
-	private Vector3[] stringPositions = new Vector3[3];
+	public Vector3[] stringPositions = new Vector3[3];
 
 	private float d = 0f;
 	public int Num = 0;
 
 	GameObject gameManager;
 
-	private bool activeUpdate = true; //クリアいたらupdateを止める
+	private bool activeUpdate = true; //クリアしたらupdateを止める
+
+	private bool LeapStart = false; // lerp用
+	[SerializeField] private GameObject walldestroyer;
+	private int walldestroyernum;
 
 
 	// Use this for initialization
@@ -46,13 +50,15 @@ public class StringCtrl : MonoBehaviour {
 		player = gameObject.transform.parent.gameObject;
 		lineRenderer = this.GetComponent<LineRenderer> ();
 
-		lineRenderer.enabled = false; //Qキを押した瞬間、原点から現在地に線が引かれてしまう　防ぎ方がわからないため一瞬だけLineRendereを非表示にする
+		lineRenderer.enabled = false; //Qキーを押した瞬間、原点から現在地に線が引かれてしまう（1f更新を待つため）　防ぎ方がわからないため一瞬だけLineRendereを非表示にする
 
 		lineRenderer.SetVertexCount (PosNum);
 		stringPositions [0] = this.transform.position;
 		lineRenderer.SetPosition (0, stringPositions[0]);
 		Debug.Log ("1つ目のアンカー");
-		lineRenderer.numCornerVertices = 10; //角をなめらかにする度合い
+		//lineRenderer.numCornerVertices = 1; //角をなめらかにする度合い
+
+		walldestroyernum = GameObject.Find ("PlayerCharactor").GetComponent<SetMarker> ().wallDestroyerNum;
 	}
 	
 	// Update is called once per frame
@@ -107,26 +113,43 @@ public class StringCtrl : MonoBehaviour {
 
 				Debug.Log ("3つ目のアンカー");
 
+					walldestroyer = GameObject.Find ("WallDestroyer" + walldestroyernum);
+
 				finish = true;
 			}
 		}
 			
-		if (Input.GetKeyUp (KeyCode.E)) {
+		if (Input.GetKeyDown (KeyCode.E)) { // Eキーが押されたら 
 
 			if(finish == false){ // 3点押される前のEキー：フニャフニャ線を生成する
 				GameObject LineMaker = Instantiate (lineMakerPrefab, player.transform.position, Quaternion.identity);
 				LineMaker.transform.parent = this.player.transform;
+
+				//stringPositions [1] = new Vector3 ((stringPositions[0].x + stringPositions[2].x) /2, (stringPositions[0].y + stringPositions[2].y) /2, (stringPositions[0].z + stringPositions[2].z) /2);
+				//lineRenderer.SetPosition (1, stringPositions [1]);
 			}
 
 			if(finish == true){ // 3点押された後のEキー：糸をまっすぐ伸ばす
-			stringPositions [1] = new Vector3 ((stringPositions[0].x + stringPositions[2].x) /2, (stringPositions[0].y + stringPositions[2].y) /2, (stringPositions[0].z + stringPositions[2].z) /2);
-			lineRenderer.SetPosition (1, stringPositions [1]);
+			
+					//stringPositions [1] = new Vector3 ((stringPositions[0].x + stringPositions[2].x) /2, (stringPositions[0].y + stringPositions[2].y) /2, (stringPositions[0].z + stringPositions[2].z) /2);
+					LeapStart = true;
+
 			}
 
 			//Destroy (this); //その後消える
-				activeUpdate = false;
+				Invoke("FalseActiveUpdate", 1f);
 		}
+			if(LeapStart == true){
+				stringPositions [1] = Vector3.Lerp (stringPositions[1], new Vector3 ((stringPositions [0].x + stringPositions [2].x) / 2, (stringPositions [0].y + stringPositions [2].y) / 2, (stringPositions [0].z + stringPositions [2].z) / 2), 30f * Time.deltaTime);
+				lineRenderer.SetPosition (1, stringPositions [1]);
+			}
+
 		}
+	}
+
+	void FalseActiveUpdate(){
+		activeUpdate = false;
+		//Debug.Log ("aa");
 	}
 
 	public void DestroyPositions(){

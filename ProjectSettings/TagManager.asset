@@ -9,6 +9,9 @@ TagManager:
   - Goal
   - LineMaker
   - StringMaker
+  - Fire
+  - Wall
+  - Walldestroyer
   layers:
   - Default
   - TransparentFX

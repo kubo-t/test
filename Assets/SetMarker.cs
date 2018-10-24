@@ -20,6 +20,7 @@ public class SetMarker : MonoBehaviour {
 	public GameObject markerPrefab;
 	public GameObject wallPrefab;
 	public GameObject wall;
+	public GameObject wallDestroyer;
 
 	private bool wallInGame = false;
 
@@ -39,6 +40,8 @@ public class SetMarker : MonoBehaviour {
 	private	Vector2 minVec2;
 	private	Vector2 mdlVec2;
 	private	Vector2 maxVec2;
+
+	public int wallDestroyerNum = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -104,6 +107,7 @@ public class SetMarker : MonoBehaviour {
 			//始点A(xa, ya)と終点B(xb, yb)の中点L(xl, yl)を求める
 			float xl = (xa + xb) / 2;
 			float yl = (ya + yb) / 2;
+			float zl = (markList [0].transform.position.y + markList [2].transform.position.y) / 2;
 
 			float scaleDis = Mathf.Abs(Vector3.Distance (minPos, maxPos));
 
@@ -114,7 +118,20 @@ public class SetMarker : MonoBehaviour {
 				wall.transform.localScale = new Vector3 (scaleDis, 1f, 1f);
 				wall.transform.LookAt (target); // wallをtargetへ向かせる
 
+				GameObject walldestroyer = Instantiate (wallDestroyer, new Vector3(0f, 0f, 0f),Quaternion.identity);
+				walldestroyer.transform.position = new Vector3 (xl, zl, yl);
+				walldestroyer.transform.LookAt (wall.transform.position);
+
+				walldestroyer.name = "WallDestroyer" + wallDestroyerNum;
+				wallDestroyerNum += 1;
+
 				wallInGame = true;
+			}
+
+			if(Input.GetKeyDown(KeyCode.Q)){
+				markList.Clear ();
+				markCount = 0;
+				wallInGame = false;
 			}
 
 		}
@@ -126,6 +143,8 @@ public class SetMarker : MonoBehaviour {
 			markCount = 0;
 			wallInGame = false;
 			Debug.Log ("DeleteList");
+
+			wallDestroyerNum = 0;
 		}
 
 

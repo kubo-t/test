@@ -9,6 +9,8 @@ public class WallScriot : MonoBehaviour {
 	private float timepower = 1f; //時間に応じた係数　長い距離で弾くほどパワーが出るように
 	private float timepower2 = 1f;
 
+	private float wallForceOffset = 0f;
+
 	private bool Ekey = false;
 
 	[SerializeField] float totalForce;
@@ -26,8 +28,13 @@ public class WallScriot : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other){
 		if(other.gameObject.tag != "Field"){
-			other.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * wallForce/4 * timepower2);
-			Debug.Log (wallForce/4 * timepower2);
+			if (wallForce / 4 * (timepower2 * 4/5) < 900f) {
+				other.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * wallForce/1.8f * (timepower2 * 4/5));
+			} else {
+				other.gameObject.GetComponent<Rigidbody> ().AddForce (Vector3.up * 900);
+			}
+			Debug.Log (wallForce/4 * (timepower2 * 4/5));
+			Debug.Log (wallForceOffset);
 			if (Ekey)Ekey = false;
 			//other.gameObject.GetComponent<Rigidbody> ().AddForce (this.transform.forward * wallForce/30);
 		}
@@ -50,10 +57,11 @@ public class WallScriot : MonoBehaviour {
 
 		if(Ekey){
 			timepower += 1 * Time.deltaTime;
-			timepower2 += timepower * 10 * Time.deltaTime; //上向きの力
+			timepower2 += timepower * timepower * 10 * Time.deltaTime; //上向きの力
+			wallForceOffset += 500f * Time.deltaTime;
 		}
 
-		totalForce = wallForce * timepower;
+		totalForce = (wallForce * timepower) + wallForceOffset;
 		//Debug.Log (timepower);
 		//Debug.Log (totalForce);
 	}
