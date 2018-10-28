@@ -56,8 +56,11 @@ MonoBehaviour:
   stringMakerPrefab: {fileID: 1874560409283960, guid: e25dbc461c1066749a6ccfd96e05778c,
     type: 2}
   positionList: []
+  positionCount: 0
   Num: 0
   newPositionCount: 0
+  material1: {fileID: 2100000, guid: f80ef97204750014085a334d3e7ce649, type: 2}
+  material2: {fileID: 2100000, guid: 5d91bace127d9bb4c8f2b0ed8c0fdfef, type: 2}
 --- !u!120 &120484877985527626
 LineRenderer:
   m_ObjectHideFlags: 1

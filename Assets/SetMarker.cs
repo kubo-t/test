@@ -15,6 +15,8 @@ using UnityEngine;
 //*-----------------------<コピペ用>-----------------------*/
 //*--------------------------------------------------*/
 
+//keycode Q E
+
 public class SetMarker : MonoBehaviour {
 
 	public GameObject markerPrefab;
@@ -42,6 +44,8 @@ public class SetMarker : MonoBehaviour {
 	private	Vector2 maxVec2;
 
 	public int wallDestroyerNum = 0;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -111,6 +115,15 @@ public class SetMarker : MonoBehaviour {
 
 			float scaleDis = Mathf.Abs(Vector3.Distance (minPos, maxPos));
 
+			if(Input.GetKeyDown(KeyCode.Q)){
+				/*
+				markList.Clear ();
+				markCount = 0;
+				wallInGame = false;
+				*/
+				ResetMark ();
+			}
+
 			if(!wallInGame){
 				wall = Instantiate (wallPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
 				wall.transform.position = mdlPos; //wallを中点の座標へ移動
@@ -128,23 +141,21 @@ public class SetMarker : MonoBehaviour {
 				wallInGame = true;
 			}
 
-			if(Input.GetKeyDown(KeyCode.Q)){
-				markList.Clear ();
-				markCount = 0;
-				wallInGame = false;
-			}
+
 
 		}
 
 		if(Input.GetKeyDown(KeyCode.E)){
 			//wall.GetComponent<Rigidbody> ().AddForce(wall.GetComponent<WallScriot>().wallForward * wallAddPower);
 			//wall.GetComponent<WallScriot>().WallAddForce();
-			markList.Clear ();
+			/*markList.Clear ();
 			markCount = 0;
 			wallInGame = false;
 			Debug.Log ("DeleteList");
 
 			wallDestroyerNum = 0;
+			*/
+			MarkClear();
 		}
 
 
@@ -152,12 +163,29 @@ public class SetMarker : MonoBehaviour {
 		//}
 	}
 
-	void Marking(){
+	public void MarkClear(){
+		markList.Clear ();
+		markCount = 0;
+		wallInGame = false;
+		Debug.Log ("DeleteList");
+
+		wallDestroyerNum = 0;
+	}
+
+	public void ResetMark(){
+		markList.Clear ();
+		markCount = 0;
+		wallInGame = false;
+	}
+
+	public void Marking(){
 		//int markCount = 0;
 		if(markCount <= 2){
 			markList.Add (Instantiate (markerPrefab, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity));
 
 			markCount += 1;
+			Debug.Log (markCount);
+			Debug.Log (wallInGame);
 		}
 	}
 		

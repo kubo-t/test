@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 //using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour {
@@ -23,7 +24,9 @@ public class PlayerCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		float horizontal = CrossPlatformInputManager.GetAxis ("Mouse X");
+		this.transform.Rotate (0, horizontal * speedRot * 2.1f * Time.deltaTime , 0f);
 
 		PlayerMove ();
 		//text = GameObject.Find ("Text");

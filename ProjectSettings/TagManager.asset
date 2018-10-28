@@ -12,6 +12,7 @@ TagManager:
   - Fire
   - Wall
   - Walldestroyer
+  - Pin
   layers:
   - Default
   - TransparentFX

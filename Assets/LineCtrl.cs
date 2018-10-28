@@ -41,7 +41,7 @@ public class LineCtrl : MonoBehaviour {
 	[SerializeField] private GameObject stringMakerPrefab; // Qキーで弦のPrefabを生成するために取得
 
 	public List<Vector3> positionList = new List<Vector3>(); // Linrendererに格納する座標群
-	private int positionCount; //positionListの要素数
+	public int positionCount; //positionListの要素数
 
 	private bool DestroPositions = false;
 	private float d = 0f;
@@ -52,6 +52,13 @@ public class LineCtrl : MonoBehaviour {
 	private bool activeUpdate = true; //ゲームクリアしたらupdateを止める
 
 	public int newPositionCount;
+
+	GameObject buttonCtrl;
+	TouchMove touchMove;
+
+	[SerializeField]private Material material1;
+	[SerializeField]private Material material2;
+	//Material[] mats;
 
 	// Use this for initialization
 	void Start () {
@@ -70,6 +77,16 @@ public class LineCtrl : MonoBehaviour {
 
 		lineRenderer.SetPosition (0, startPos);
 		lineRenderer.SetPosition (1, player.transform.position);
+
+		buttonCtrl = GameObject.Find ("ButtonCtrl");
+		touchMove = buttonCtrl.GetComponent<TouchMove> ();
+
+		/*
+		mats = lineRenderer.materials;
+		mats [0] = material1;
+		mats [1] = material2;
+		*/
+		//lineRenderer.material = material1;
 	}
 	
 	// Update is called once per frame
@@ -98,11 +115,25 @@ public class LineCtrl : MonoBehaviour {
 
 		}
 
+		if(touchMove.buttonForward || touchMove.buttonBack){
+			delta += 1 * Time.deltaTime;
+		}
+
 		if(delta > setPositionRate){ // setPositionRate秒ごとに座標を固定する
 
 			delta = 0;
 
 			i += 1;
+
+			int randomizer = Random.Range (0, 5);
+
+			/*
+			if (randomizer == 1 || randomizer == 2) {
+				lineRenderer.material = material1;
+			} else {
+				lineRenderer.material = material2;
+			}
+			*/
 
 			positionList.Add (this.transform.position);
 			positionCount = positionList.Count;
@@ -127,11 +158,15 @@ public class LineCtrl : MonoBehaviour {
 			lineRenderer.SetPosition (1, this.transform.position); //最新の座標に現在地を入れる(PositionCountが3点目から定義されるため個別で表記)
 		} 
 			
-		if(Input.GetKey(KeyCode.Q) && positionCount > 1){
+		if(Input.GetKey(KeyCode.Q) && positionCount > 1){ // StringMaker生成
+			/*
 			GameObject StringMaker = Instantiate (stringMakerPrefab, player.transform.position, Quaternion.identity);
 			StringMaker.transform.parent = this.player.transform;
 			//Destroy(this);
 			activeUpdate = false;
+			*/
+
+			MakeStringMaker ();
 		}
 
 		/*
@@ -160,6 +195,13 @@ public class LineCtrl : MonoBehaviour {
 		*/
 			
 	}//LineMove()
+
+	public void MakeStringMaker(){
+		GameObject StringMaker = Instantiate (stringMakerPrefab, player.transform.position, Quaternion.identity);
+		StringMaker.transform.parent = this.player.transform;
+		//Destroy(this);
+		activeUpdate = false;
+	}
 
 	public void DestroyPositions(){
 

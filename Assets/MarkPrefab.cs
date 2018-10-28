@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//keycode E
+
 public class MarkPrefab : MonoBehaviour {
 
 	// Use this for initialization
@@ -12,7 +14,11 @@ public class MarkPrefab : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.E)){
-			Destroy (this.gameObject);
+			DestroyMarkPrefab();
 		}
+	}
+
+	public void DestroyMarkPrefab(){
+		Destroy (this.gameObject);
 	}
 }

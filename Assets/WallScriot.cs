@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//keycode E
+
 public class WallScriot : MonoBehaviour {
 
 	[SerializeField] private float wallForce;
@@ -21,7 +23,10 @@ public class WallScriot : MonoBehaviour {
 	}
 
 	public void WallAddForce(){
+		this.gameObject.AddComponent<BoxCollider> ();
 		this.GetComponent<Rigidbody> ().AddForce (this.transform.forward * totalForce);
+		Destroy (this.gameObject, 2f);
+		if (!Ekey)Ekey = true;
 	}
 
 
@@ -48,11 +53,11 @@ public class WallScriot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.E)){
-			this.gameObject.AddComponent<BoxCollider> ();
+			//this.gameObject.AddComponent<BoxCollider> ();
 			WallAddForce ();
-			Destroy (this.gameObject, 2f);
+			//Destroy (this.gameObject, 2f);
 
-			if (!Ekey)Ekey = true;
+			//if (!Ekey)Ekey = true;
 		}
 
 		if(Ekey){

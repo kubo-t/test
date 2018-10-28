@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//keycode Q
+
 public class StringCtrl : MonoBehaviour {
 
 	/*///////////////////////スクリプト概要///////////////////////////////
@@ -16,8 +18,8 @@ public class StringCtrl : MonoBehaviour {
 
 
 	private int PosNum = 2;
-	private int Qkey = 1;
-	private bool finish = false;
+	public int Qkey = 1;
+	public bool finish = false;
 
 	GameObject player; // プレイヤーキャラ
 
@@ -76,10 +78,14 @@ public class StringCtrl : MonoBehaviour {
 
 		if(Qkey == 2){ // Qキー2回目
 			if(Input.GetKeyDown(KeyCode.Q)){
+				/*
 				PosNum = 3;
 				lineRenderer.SetVertexCount (PosNum);
 				stringPositions [1] = this.transform.position;
 				lineRenderer.SetPosition (PosNum - 2, stringPositions [1]);
+				*/
+				
+				Qtwo ();
 
 				Debug.Log ("2つ目のアンカー");
 
@@ -101,10 +107,12 @@ public class StringCtrl : MonoBehaviour {
 		}
 
 		if (Qkey == 4 && finish == false) { //Qキー3回目
-
+			
 			if(Input.GetKeyDown(KeyCode.Q)){
-				//lineRenderer.SetVertexCount (PosNum);
 
+				Qfour ();
+				//lineRenderer.SetVertexCount (PosNum);
+				/*
 				stringPositions [2] = this.transform.position;
 				lineRenderer.SetPosition (PosNum - 1, stringPositions [2]);
 
@@ -113,14 +121,16 @@ public class StringCtrl : MonoBehaviour {
 
 				Debug.Log ("3つ目のアンカー");
 
-					walldestroyer = GameObject.Find ("WallDestroyer" + walldestroyernum);
+				walldestroyer = GameObject.Find ("WallDestroyer" + walldestroyernum);
 
 				finish = true;
+				*/
+				Debug.Log ("3つ目のアンカー");
 			}
 		}
 			
 		if (Input.GetKeyDown (KeyCode.E)) { // Eキーが押されたら 
-
+				/*
 			if(finish == false){ // 3点押される前のEキー：フニャフニャ線を生成する
 				GameObject LineMaker = Instantiate (lineMakerPrefab, player.transform.position, Quaternion.identity);
 				LineMaker.transform.parent = this.player.transform;
@@ -138,13 +148,57 @@ public class StringCtrl : MonoBehaviour {
 
 			//Destroy (this); //その後消える
 				Invoke("FalseActiveUpdate", 1f);
+				*/
+				Estring ();
 		}
-			if(LeapStart == true){
+		
+		if(LeapStart == true){
 				stringPositions [1] = Vector3.Lerp (stringPositions[1], new Vector3 ((stringPositions [0].x + stringPositions [2].x) / 2, (stringPositions [0].y + stringPositions [2].y) / 2, (stringPositions [0].z + stringPositions [2].z) / 2), 30f * Time.deltaTime);
 				lineRenderer.SetPosition (1, stringPositions [1]);
 			}
 
 		}
+	}
+
+	public void Estring(){
+		if(finish == false){ // 3点押される前のEキー：フニャフニャ線を生成する
+			GameObject LineMaker = Instantiate (lineMakerPrefab, player.transform.position, Quaternion.identity);
+			LineMaker.transform.parent = this.player.transform;
+
+			//stringPositions [1] = new Vector3 ((stringPositions[0].x + stringPositions[2].x) /2, (stringPositions[0].y + stringPositions[2].y) /2, (stringPositions[0].z + stringPositions[2].z) /2);
+			//lineRenderer.SetPosition (1, stringPositions [1]);
+		}
+
+		if(finish == true){ // 3点押された後のEキー：糸をまっすぐ伸ばす
+
+			//stringPositions [1] = new Vector3 ((stringPositions[0].x + stringPositions[2].x) /2, (stringPositions[0].y + stringPositions[2].y) /2, (stringPositions[0].z + stringPositions[2].z) /2);
+			LeapStart = true;
+
+		}
+
+		//Destroy (this); //その後消える
+		Invoke("FalseActiveUpdate", 1f);
+	}
+
+	public void Qtwo(){
+		PosNum = 3;
+		lineRenderer.SetVertexCount (PosNum);
+		stringPositions [1] = this.transform.position;
+		lineRenderer.SetPosition (PosNum - 2, stringPositions [1]);
+	}
+
+	public void Qfour(){
+		stringPositions [2] = this.transform.position;
+		lineRenderer.SetPosition (PosNum - 1, stringPositions [2]);
+
+		GameObject LineMaker = Instantiate (lineMakerPrefab, player.transform.position, Quaternion.identity);
+		LineMaker.transform.parent = this.player.transform;
+
+		//Debug.Log ("3つ目のアンカー");
+
+		walldestroyer = GameObject.Find ("WallDestroyer" + walldestroyernum);
+
+		finish = true;
 	}
 
 	void FalseActiveUpdate(){
