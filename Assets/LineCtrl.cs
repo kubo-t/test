@@ -34,6 +34,8 @@ public class LineCtrl : MonoBehaviour {
 	private bool first = true;
 
 	GameObject player; // プレイヤーキャラ
+	PlayerCtrl playerCtrl;
+
 	private Vector3 startPos;
 
 	public LineRenderer lineRenderer; // LineRenderer
@@ -58,6 +60,10 @@ public class LineCtrl : MonoBehaviour {
 
 	[SerializeField]private Material material1;
 	[SerializeField]private Material material2;
+	[SerializeField]private Material material3;
+
+	private bool isMetal = false;
+	private bool isElectric = false;
 	//Material[] mats;
 
 	// Use this for initialization
@@ -81,6 +87,8 @@ public class LineCtrl : MonoBehaviour {
 		buttonCtrl = GameObject.Find ("ButtonCtrl");
 		touchMove = buttonCtrl.GetComponent<TouchMove> ();
 
+		playerCtrl = player.GetComponent<PlayerCtrl> ();
+
 		/*
 		mats = lineRenderer.materials;
 		mats [0] = material1;
@@ -91,6 +99,36 @@ public class LineCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(!this.isMetal){
+
+			if(playerCtrl.isMetal){
+				lineRenderer.material = material2;// (Metal)
+				this.isMetal = true;
+			}
+		}
+		if(this.isMetal){
+
+			if(playerCtrl.isElectric){
+				lineRenderer.material = material3;// (Electric)
+				this.isElectric = true;
+			}
+
+
+			if(!playerCtrl.isMetal){
+				lineRenderer.material = material1;// (normal)
+				this.isMetal = false;
+			}
+
+		}
+		if(this.isElectric){
+
+			if (!playerCtrl.isElectric) {
+				lineRenderer.material = material2;// (Metal)
+				this.isElectric = false;
+			}
+
+		}
 
 		if(activeUpdate == true){
 

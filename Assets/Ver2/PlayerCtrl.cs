@@ -13,6 +13,9 @@ public class PlayerCtrl : MonoBehaviour {
 
 	public GameObject firstLineMaker;
 
+	public bool isMetal = false;
+	public bool isElectric = false;
+
 	//Text text;
 
 	// Use this for initialization
@@ -52,4 +55,12 @@ public class PlayerCtrl : MonoBehaviour {
 			gameManager.GetComponent<GameCtrl> ().GameClear ();
 		}
 	}
+
+	/*
+	void OnTriggerEnter(Collider other){
+		if(other.gameObject.tag == "Metal"){
+			isMetal = true;
+		}
+	}
+	*/
 }

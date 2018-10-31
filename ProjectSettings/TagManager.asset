@@ -13,6 +13,8 @@ TagManager:
   - Wall
   - Walldestroyer
   - Pin
+  - WildFire
+  - Car
   layers:
   - Default
   - TransparentFX

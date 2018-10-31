@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b164c62de8010244a9ad52be1220c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Qkey: 1
+  finish: 0
   lineRenderer: {fileID: 0}
   lineMakerPrefab: {fileID: 1786388846587026, guid: 9fdb18730cdcc734784cae9b8f1efd8f,
     type: 2}
@@ -61,6 +63,9 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   Num: 0
   walldestroyer: {fileID: 0}
+  material1: {fileID: 2100000, guid: def33f7a06cc55c41813b5f11a34025c, type: 2}
+  material2: {fileID: 2100000, guid: 9cdfe39995f5d3342a877e30b01499ab, type: 2}
+  material3: {fileID: 2100000, guid: c91e41c1fcbabe043b41ef98d398c4e0, type: 2}
 --- !u!120 &120671748848836094
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -40,10 +40,10 @@ public class TouchMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(buttonForward)player.transform.position += player.transform.forward * speed * Time.deltaTime;
-		if(buttonBack)player.transform.position -= player.transform.forward * speed * Time.deltaTime;
+		if(buttonForward)player.transform.position += player.transform.forward * 1.2f * speed * Time.deltaTime;
+		if(buttonBack)player.transform.position -= player.transform.forward * 1.2f * speed * Time.deltaTime;
 
-		Debug.Log (setMarker.markCount);
+		//Debug.Log (setMarker.markCount);
 		if (setMarker.markCount < 3 || gameCtrl.gameClear) {
 			shotButton.color = Color.gray;
 		} else if(setMarker.markCount == 3){

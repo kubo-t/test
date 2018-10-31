@@ -22,6 +22,7 @@ public class StringCtrl : MonoBehaviour {
 	public bool finish = false;
 
 	GameObject player; // プレイヤーキャラ
+	PlayerCtrl playerCtrl;
 
 	public LineRenderer lineRenderer; // LineRenderer
 
@@ -40,6 +41,13 @@ public class StringCtrl : MonoBehaviour {
 	[SerializeField] private GameObject walldestroyer;
 	private int walldestroyernum;
 
+	[SerializeField]private Material material1;
+	[SerializeField]private Material material2;
+	[SerializeField]private Material material3;
+
+	private bool isMetal = false;
+	private bool isElectric = false;
+
 
 	// Use this for initialization
 	void Start () { //Qキー1回目
@@ -50,6 +58,8 @@ public class StringCtrl : MonoBehaviour {
 		this.transform.rotation = Quaternion.Euler(90f, 0f,0f);
 
 		player = gameObject.transform.parent.gameObject;
+		playerCtrl = player.GetComponent<PlayerCtrl> ();
+
 		lineRenderer = this.GetComponent<LineRenderer> ();
 
 		lineRenderer.enabled = false; //Qキーを押した瞬間、原点から現在地に線が引かれてしまう（1f更新を待つため）　防ぎ方がわからないため一瞬だけLineRendereを非表示にする
@@ -65,6 +75,36 @@ public class StringCtrl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(!this.isMetal){
+
+			if(playerCtrl.isMetal){
+				lineRenderer.material = material2;// (Metal)
+				this.isMetal = true;
+			}
+		}
+		if(this.isMetal){
+
+			if(playerCtrl.isElectric){
+				lineRenderer.material = material3;// (Electric)
+				this.isElectric = true;
+			}
+
+
+			if(!playerCtrl.isMetal){
+				lineRenderer.material = material1;// (normal)
+				this.isMetal = false;
+			}
+
+		}
+		if(this.isElectric){
+
+			if (!playerCtrl.isElectric) {
+				lineRenderer.material = material1;// (Metal)
+				this.isElectric = false;
+			}
+
+		}
 
 		if(activeUpdate == true){
 

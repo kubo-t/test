@@ -60,7 +60,8 @@ MonoBehaviour:
   Num: 0
   newPositionCount: 0
   material1: {fileID: 2100000, guid: f80ef97204750014085a334d3e7ce649, type: 2}
-  material2: {fileID: 2100000, guid: 5d91bace127d9bb4c8f2b0ed8c0fdfef, type: 2}
+  material2: {fileID: 2100000, guid: f92f018814efbe840a68086823666f52, type: 2}
+  material3: {fileID: 2100000, guid: 6b191fab4e34f4b4dbe4bd495b55f89a, type: 2}
 --- !u!120 &120484877985527626
 LineRenderer:
   m_ObjectHideFlags: 1
