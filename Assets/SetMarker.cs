@@ -185,7 +185,7 @@ public class SetMarker : MonoBehaviour {
 
 			markCount += 1;
 			Debug.Log (markCount);
-			Debug.Log (wallInGame);
+			//Debug.Log (wallInGame);
 		}
 	}
 		

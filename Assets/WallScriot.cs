@@ -48,6 +48,11 @@ public class WallScriot : MonoBehaviour {
 
 			if (Ekey)Ekey = false;
 		}
+		if(other.gameObject.tag == "Car"){
+			other.gameObject.GetComponent<Rigidbody> ().AddForce ((this.transform.forward * wallForce * timepower2) * 2);
+			Destroy (this.gameObject);
+			Debug.Log ("aaa");
+		}
 	}
 	
 	// Update is called once per frame

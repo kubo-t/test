@@ -27,6 +27,8 @@ public class TouchMove : MonoBehaviour {
 
 	private int CheckQkey = 0;
 
+	//private bool markLock = false;
+
 	//GameObject[] walls;
 
 	// Use this for initialization
@@ -46,8 +48,10 @@ public class TouchMove : MonoBehaviour {
 		//Debug.Log (setMarker.markCount);
 		if (setMarker.markCount < 3 || gameCtrl.gameClear) {
 			shotButton.color = Color.gray;
+		//	setMarkButton.color = Color.white;
 		} else if(setMarker.markCount == 3){
 			shotButton.color = Color.white;
+		//	setMarkButton.color = Color.gray;
 		}
 
 		if(gameCtrl.gameClear){
@@ -90,10 +94,10 @@ public class TouchMove : MonoBehaviour {
 
 	public void ShotButtonClicked(){
 
-		if(setMarker.markCount < 3 || gameCtrl.gameClear){
+		if(shotButton.color == Color.gray){
 			return;
 		}
-
+			
 		GameObject[] stringMaker = GameObject.FindGameObjectsWithTag ("StringMaker"); 
 		for(int i = 0; i < stringMaker.Length; i++){
 			stringMaker [i].GetComponent<StringCtrl> ().Estring();
@@ -125,7 +129,7 @@ public class TouchMove : MonoBehaviour {
 		
 	public void SetMarkButtonUp(){
 
-		if(gameCtrl.gameClear == true){
+		if(gameCtrl.gameClear == true ){
 			return;
 		}
 
@@ -134,6 +138,7 @@ public class TouchMove : MonoBehaviour {
 
 		if(setMarker.markCount == 3){
 			setMarker.ResetMark ();
+		
 		}
 	}
 
